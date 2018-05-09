@@ -39,30 +39,35 @@
         </v-stage>
 
         <!-- paper -->
-        <svg ref="svg-paper"
-             class="paper"
-             x="0px" y="0px" width="450px" height="100px" viewbox="0 0 450 100">
+        <div ref="svgPaper"
+             class="paper svg-paper">
+            <svg x="0px"
+                 y="0px"
+                 width="450px"
+                 height="100px"
+                 viewbox="0 0 450 100">
 
-            <rect x="10"
-                  y="5"
-                  fill="green"
-                  stroke="black"
-                  width="90"
-                  height="90">
-            </rect>
+                <rect x="10"
+                      y="5"
+                      fill="green"
+                      stroke="black"
+                      width="90"
+                      height="90">
+                </rect>
 
-            <circle fill="red"
-                    stroke="black"
-                    cx="170"
-                    cy="50"
-                    r="45">
-            </circle>
+                <circle fill="red"
+                        stroke="black"
+                        cx="170"
+                        cy="50"
+                        r="45">
+                </circle>
 
-            <polygon fill="blue"
-                     stroke="black"
-                     points="279,5 294,35 328,40 303,62 309,94 279,79 248,94 254,62 230,39 263,35">
-            </polygon>
-        </svg>
+                <polygon fill="blue"
+                         stroke="black"
+                         points="279,5 294,35 328,40 303,62 309,94 279,79 248,94 254,62 230,39 263,35">
+                </polygon>
+            </svg>
+        </div>
 
         <!-- DOM paper version -->
         <div class="dom-paper">
@@ -273,10 +278,16 @@
             exportPDFSVG: function () {
                 console.log('exportPDFSVG');
 
-                let paper = this.$refs['svg-paper'];
+                let vm = this;
+
+                let paper = this.$refs['svgPaper'];
 
                 html2canvas(paper)
                     .then(canvas => {
+
+                        // log
+                        console.log(`Screenshot size : ( width : ${canvas.width},  height : ${canvas.height} )`);
+
 
                         let pdf = new jsPDF({
                             orientation: 'landscape',
@@ -332,6 +343,11 @@
         display: block;
         border: 1px solid black;
         background: lightyellow;
+    }
+
+    .svg-paper {
+        width: 450px;
+        height: 100px;
     }
 
     .dom-paper {
